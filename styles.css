@@ -391,10 +391,32 @@ strong {
 }
 
 .row-head .when {
+  grid-column: -2 / -1;
   color: var(--muted);
   font-size: 0.875rem;
   white-space: nowrap;
   font-variant-numeric: tabular-nums;
+}
+
+/* Involvement: the role always sits under the name, so a long name and role
+   never squeeze each other, and every year lines up on the right. */
+#involvement .row-head {
+  grid-template-columns: minmax(0, 1fr) auto;
+}
+
+#involvement .row-head h3 {
+  grid-row: 1;
+  grid-column: 1;
+}
+
+#involvement .row-head .when {
+  grid-row: 1;
+  grid-column: 2;
+}
+
+#involvement .row-head .role {
+  grid-row: 2;
+  grid-column: 1 / -1;
 }
 
 .summary {
