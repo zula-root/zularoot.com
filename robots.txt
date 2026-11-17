@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://zularoot.com/sitemap.xml
