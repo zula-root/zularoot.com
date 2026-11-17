@@ -8,7 +8,7 @@ projects/              one page per project: pictures, steps, who did what
 styles.css             the look
 script.js              theme toggle, nav state, fade-in, the light, picture strip
 img/                   pictures for each project
-zula-root-resume.pdf   the resume; img/resume.png is a picture of its page, shown on the site
+Zula-Root-Resume.pdf   the resume; img/resume.png is a picture of its page, shown on the site
 favicon.svg
 ```
 
@@ -39,7 +39,7 @@ what was done, and who did what.
 The Resume section shows a picture of the PDF's one page, so it looks the
 same in every browser and on every phone. The buttons and the picture all
 lead to the PDF itself. When the resume changes, replace both files:
-`zula-root-resume.pdf`, and `img/resume.png`, which is page one of the PDF
+`Zula-Root-Resume.pdf`, and `img/resume.png`, which is page one of the PDF
 at 1700 by 2200 pixels (200 dots per inch).
 
 ## The light
