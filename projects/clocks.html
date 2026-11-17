@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sentence Clocks · Zula Root</title>
+  <meta name="description" content="Two clocks that tell the time in sentences: one made of train timetables, one made of court opinions. What they are, how they were made, and who did what.">
+  <meta property="og:title" content="Sentence Clocks · Zula Root">
+  <meta property="og:description" content="Two clocks that tell the time in sentences: one made of train timetables, one made of court opinions. What they are, how they were made, and who did what.">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Zula Root">
+  <meta name="twitter:card" content="summary">
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <!-- Applies a saved theme before first paint so the page never flashes. -->
+  <script>try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t}catch(e){}</script>
+</head>
+<body>
+
+  <nav class="nav" aria-label="Site">
+    <div class="nav-inner">
+      <a class="brand" href="../">Zula Root</a>
+      <ul class="nav-links">
+        <li><a href="../#experience">Experience</a></li>
+        <li><a href="../#involvement">Involvement</a></li>
+        <li><a href="../#projects" aria-current="true">Projects</a></li>
+        <li><a href="../#resume">Resume</a></li>
+        <li><a href="../#contact">Contact</a></li>
+      </ul>
+      <button class="theme-toggle" type="button" aria-label="Switch between light and dark">
+        <svg class="sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+        <svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+    </div>
+  </nav>
+
+  <main class="page" id="top">
+
+    <header class="project-intro grid">
+      <div class="body">
+        <a class="back" href="../#projects">← All projects</a>
+        <h1>Sentence Clocks</h1>
+        <p class="subline">Side project<span class="sep">·</span>2026</p>
+        <p class="lede">Two clocks that tell the time in sentences. One is made of train timetables, the other of court opinions.</p>
+        <ul class="links">
+          <li><a class="pill pill-primary" href="https://zula-root.github.io/Transit-Clock/" target="_blank" rel="noreferrer">View project</a></li>
+          <li><a class="pill" href="https://github.com/zula-root/Transit-Clock" target="_blank" rel="noreferrer">View on GitHub</a></li>
+        </ul>
+        <p class="aside">The project opens on the Transit Clock. A switch in the corner of the page leads to the Docket Clock, whose code is in <a href="https://github.com/zula-root/Docket-Clock" target="_blank" rel="noreferrer">a repository of its own</a>.</p>
+      </div>
+    </header>
+
+    <!-- The pictures. Each <figure> is one slide: copy one to add another. -->
+    <div class="grid">
+      <section class="shots" aria-label="Pictures of the two clocks">
+        <div class="shots-track" tabindex="0">
+          <figure class="shot">
+            <a href="../img/clocks-pair.jpg" target="_blank"><img src="../img/clocks-pair.jpg" alt="The Transit Clock and the Docket Clock side by side on two folded phones" width="1600" height="1000" loading="lazy"></a>
+            <figcaption>The two clocks on folded phones: the Transit Clock on the left, the Docket Clock on the right. This is a rendering, not a photograph.</figcaption>
+          </figure>
+          <figure class="shot">
+            <a href="../img/transit-clock/stand.jpg" target="_blank"><img src="../img/transit-clock/stand.jpg" alt="The Transit Clock showing the 7:12 a.m. Nozomi leaving Tokyo for Hakata" width="1600" height="1000" loading="lazy"></a>
+            <figcaption>The Transit Clock. Every minute is a real departure.</figcaption>
+          </figure>
+          <figure class="shot">
+            <a href="../img/transit-clock/page.jpg" target="_blank"><img src="../img/transit-clock/page.jpg" alt="The whole Transit Clock page in a browser" width="1600" height="1000" loading="lazy"></a>
+            <figcaption>Its whole page: the sentence, the route as a departure board, and a map of the line.</figcaption>
+          </figure>
+          <figure class="shot">
+            <a href="../img/docket-clock/stand.jpg" target="_blank"><img src="../img/docket-clock/stand.jpg" alt="The Docket Clock showing the sentence for midnight" width="1600" height="1000" loading="lazy"></a>
+            <figcaption>The Docket Clock. Every minute is a sentence a court once wrote down.</figcaption>
+          </figure>
+          <figure class="shot">
+            <a href="../img/docket-clock/page.jpg" target="_blank"><img src="../img/docket-clock/page.jpg" alt="The whole Docket Clock page in a browser" width="1600" height="1000" loading="lazy"></a>
+            <figcaption>Its whole page. Under the sentence is the day as 1,440 dots, one for each minute.</figcaption>
+          </figure>
+        </div>
+      </section>
+    </div>
+
+    <section class="section grid reveal" aria-labelledby="h-what">
+      <span class="num" aria-hidden="true">01</span>
+      <div class="body project-text">
+        <h2 id="h-what">What they are</h2>
+        <p>Each clock shows one sentence for the minute you are in, and a new one when the minute changes.</p>
+        <p>The Transit Clock shows a real train, ferry or bus that is timetabled to leave at exactly that minute, somewhere in the world. At 7:12 in the morning:</p>
+        <p class="pull">The 7:12 a.m. Nozomi leaves Tokyo for Hakata.</p>
+        <p>The Docket Clock shows a sentence from a published American court opinion that names that exact minute, with its citation. At midnight:</p>
+        <p class="pull">At midnight the Lewis blew her steam whistle several times, sent up rockets, and burned blue lights, to indicate her dangerous position and need of assistance.</p>
+        <p>That is from <i>Lewis v. A Lot of Whalebone</i>, decided in 1892. Laid out as a grid, the court’s day has a shape: half of all the times people give in court are on the hour, and two minutes of the day have never come up at all.</p>
+      </div>
+    </section>
+
+    <section class="section grid reveal" aria-labelledby="h-did">
+      <span class="num" aria-hidden="true">02</span>
+      <div class="body">
+        <h2 id="h-did">What I did</h2>
+        <ol class="steps">
+          <li><div><b>Gathered the timetables.</b><span>For the first clock: published schedules from about thirty transit networks, from Amtrak to Indian Railways. On a weekday that is around 350,000 trips. I kept about ten thousand, at least six for every minute.</span></div></li>
+          <li><div><b>Turned rows into sentences.</b><span>A row in a timetable becomes a line a person would say, with stop codes and shorthand cleaned up on the way.</span></div></li>
+          <li><div><b>Had the idea for a second clock.</b><span>A courtroom is the one place where people have to say exactly what time it was. So the law reports should be full of minutes.</span></div></li>
+          <li><div><b>Read the law reports by script.</b><span>Harvard’s Caselaw Access Project has put American case law online. My script read about 7,800 volumes and found about 145,000 sentences that name a time of day.</span></div></li>
+          <li><div><b>Chose one sentence for each minute.</b><span>Rules did the coarse work. Then I read every sentence the clock shows, and took 366 out by hand. Nothing about violence, illness or children is shown.</span></div></li>
+          <li><div><b>Designed the two pages.</b><span>On both, the sentence is set like a book. One adds a departure board and a dot-matrix map. The other draws the day as a grid of 1,440 dots.</span></div></li>
+          <li><div><b>Made them clocks to keep, and shipped them.</b><span>Stood on a desk, a phone shows only the sentence. Each clock is one HTML file with no framework, hosted on GitHub Pages.</span></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section grid reveal" aria-labelledby="h-who">
+      <span class="num" aria-hidden="true">03</span>
+      <div class="body">
+        <h2 id="h-who">Who did what</h2>
+        <dl class="roles">
+          <dt>Inspired by</dt>
+          <dd>The <a href="https://literature-clock.jenevoldsen.com/" target="_blank" rel="noreferrer">Literature Clock</a> by Johannes Enevoldsen, which tells the time with sentences from novels. It grew out of an e-reader clock by Jaap Meijers and a list of quotations sent in by readers of the Guardian in 2011. The Transit Clock swaps the novels for timetables.</dd>
+          <dt>Idea for the Docket Clock</dt>
+          <dd><b>Mine.</b> The same kind of clock, read from court opinions.</dd>
+          <dt>Timetables</dt>
+          <dd>Published by the operators. Each departure names its operator on the page.</dd>
+          <dt>Opinions</dt>
+          <dd>The <a href="https://case.law/" target="_blank" rel="noreferrer">Caselaw Access Project</a> at the Harvard Law School Library Innovation Lab, which made them public.</dd>
+          <dt>Data, design and code</dt>
+          <dd><b>Me.</b> I built both with Claude Code.</dd>
+        </dl>
+      </div>
+    </section>
+
+    <nav class="section grid" aria-label="More projects">
+      <span class="num" aria-hidden="true">04</span>
+      <div class="body">
+        <h2>More projects</h2>
+        <ul class="more">
+          <li><a href="research-summaries.html">Interactive Research Summaries</a></li>
+          <li><a href="kinelo-website.html">Kinelo website</a></li>
+          <li><a href="../#projects">All projects</a></li>
+        </ul>
+      </div>
+    </nav>
+
+  </main>
+
+  <footer class="page footer">
+    <span>© 2026 Zula Root</span>
+    <span>Set in Newsreader and Inter. The light at the top follows your time of day.</span>
+  </footer>
+
+  <script src="../script.js" defer></script>
+</body>
+</html>

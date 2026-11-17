@@ -1,0 +1,1362 @@
+/* Zula Root — styles
+   Paper and ink, one green, two typefaces. Tokens first. */
+
+:root {
+  color-scheme: light;
+  --paper: #f7f5f0;
+  --ink: #1b1b19;
+  --muted: #6b6a62;
+  --faint: #a4a299;
+  --rule: #dedbd2;
+  --hover: #eeebe3;
+  --accent: #1f5c42;
+  --nav: rgb(247 245 240 / 0.84);
+  --icon-sun: inline;
+  --icon-moon: none;
+
+  --serif: "Newsreader", Georgia, "Times New Roman", serif;
+  --sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --page-max: 1072px;
+  --gutter: 24px;
+  --num: 56px;
+  --measure: 640px;
+}
+
+/* Dark tokens appear twice by design: once for system preference
+   (unless the reader chose light) and once for an explicit choice. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --paper: #151614;
+    --ink: #e9e7e0;
+    --muted: #a3a197;
+    --faint: #6c6b64;
+    --rule: #2b2c28;
+    --hover: #1f201d;
+    --accent: #93c9aa;
+    --nav: rgb(21 22 20 / 0.84);
+    --icon-sun: none;
+    --icon-moon: inline;
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #151614;
+  --ink: #e9e7e0;
+  --muted: #a3a197;
+  --faint: #6c6b64;
+  --rule: #2b2c28;
+  --hover: #1f201d;
+  --accent: #93c9aa;
+  --nav: rgb(21 22 20 / 0.84);
+  --icon-sun: none;
+  --icon-moon: inline;
+}
+
+/* ---------- Base ---------- */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-padding-top: 76px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-weight: 400;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration-color: color-mix(in srgb, currentColor 35%, transparent);
+  text-underline-offset: 3px;
+  transition: text-decoration-color 150ms ease;
+}
+
+a:hover {
+  text-decoration-color: currentColor;
+}
+
+/* Emphasis stays quiet: one step above the body weight. */
+strong {
+  font-weight: 500;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--accent) 22%, transparent);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- Page grid ----------
+   Four columns on wide screens: a hanging number, the reading
+   measure, a gap, and a margin for pictures. The margin folds under
+   the text on tablets; the number column folds on phones. */
+
+.page {
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: var(--num) minmax(0, var(--measure)) 48px minmax(0, 1fr);
+}
+
+.grid > .num {
+  grid-column: 1;
+}
+
+.grid > .body {
+  grid-column: 2;
+}
+
+.grid > .side {
+  grid-column: 4;
+}
+
+/* ---------- Nav ---------- */
+
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--nav);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid transparent;
+  transition: border-color 200ms ease;
+}
+
+.nav.is-stuck {
+  border-bottom-color: var(--rule);
+}
+
+.nav-inner {
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+  height: 56px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.brand {
+  margin-right: auto;
+  font: 500 0.75rem/1 var(--sans);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  gap: 22px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.875rem;
+}
+
+.nav-links a {
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 150ms ease;
+}
+
+.nav-links a:hover,
+.nav-links a[aria-current="true"] {
+  color: var(--ink);
+}
+
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  margin-right: -8px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  color: var(--muted);
+  cursor: pointer;
+  transition:
+    background 150ms ease,
+    color 150ms ease;
+}
+
+.theme-toggle:hover {
+  background: var(--hover);
+  color: var(--ink);
+}
+
+.theme-toggle svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.theme-toggle .sun {
+  display: var(--icon-sun);
+}
+
+.theme-toggle .moon {
+  display: var(--icon-moon);
+}
+
+/* ---------- Intro ---------- */
+
+.intro {
+  padding: 84px 0 64px;
+}
+
+.intro h1 {
+  font: 400 clamp(2.6rem, 6vw, 3.6rem) / 1.04 var(--serif);
+  letter-spacing: -0.015em;
+  margin-bottom: 14px;
+}
+
+.subline {
+  color: var(--muted);
+  font-size: 0.95rem;
+  margin-bottom: 36px;
+}
+
+.subline .sep {
+  margin: 0 0.5em;
+  color: var(--faint);
+}
+
+.lede {
+  font: 400 1.35rem / 1.45 var(--serif);
+  max-width: 30em;
+  margin-bottom: 18px;
+  text-wrap: pretty;
+}
+
+.lede:last-of-type {
+  margin-bottom: 0;
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 34px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 16px;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  font-size: 0.95rem;
+  text-decoration: none;
+  transition:
+    background 150ms ease,
+    border-color 150ms ease,
+    opacity 150ms ease;
+}
+
+.pill:hover {
+  background: var(--hover);
+  border-color: var(--faint);
+}
+
+.pill svg {
+  width: 15px;
+  height: 15px;
+  fill: currentColor;
+}
+
+.pill-primary {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--paper);
+}
+
+.pill-primary:hover {
+  background: var(--ink);
+  border-color: var(--ink);
+  opacity: 0.86;
+}
+
+/* ---------- Sections ---------- */
+
+.section {
+  padding: 44px 0 52px;
+}
+
+.section .num {
+  padding-top: 0.6rem;
+  font: 500 0.75rem / 1 var(--sans);
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+
+.section h2 {
+  font: 400 1.75rem / 1.2 var(--serif);
+  letter-spacing: -0.01em;
+  margin-bottom: 20px;
+}
+
+.section .intro-line {
+  color: var(--muted);
+  margin: -8px 0 22px;
+  max-width: 56ch;
+}
+
+/* Ledger rows: organisation, role, year, hairlines between. */
+.rows {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--rule);
+}
+
+.row {
+  padding: 20px 0 22px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.row-head {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: 2px 14px;
+  align-items: baseline;
+}
+
+.row-head h3,
+.row-head .name {
+  font: 500 1rem / 1.4 var(--sans);
+  margin: 0;
+}
+
+.row-head .role {
+  color: var(--muted);
+  min-width: 0;
+}
+
+.row-head .when {
+  color: var(--muted);
+  font-size: 0.875rem;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.summary {
+  margin: 8px 0 0;
+  max-width: 62ch;
+  text-wrap: pretty;
+}
+
+.summary + .summary {
+  margin-top: 6px;
+}
+
+.bullets {
+  margin: 10px 0 0;
+  padding-left: 1.1em;
+  max-width: 62ch;
+}
+
+.bullets li {
+  margin: 6px 0;
+}
+
+.bullets li::marker {
+  color: var(--faint);
+}
+
+/* Project names link out. The arrow nudges on hover. */
+.row-head .name a {
+  text-decoration: none;
+}
+
+.row-head .name a:hover {
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+}
+
+.name .arrow {
+  display: inline-block;
+  margin-left: 3px;
+  color: var(--faint);
+  transition:
+    transform 150ms ease,
+    color 150ms ease;
+}
+
+.name a:hover .arrow {
+  color: var(--ink);
+  transform: translate(2px, -2px);
+}
+
+.when a {
+  text-decoration: none;
+}
+
+.when a:hover {
+  color: var(--ink);
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 10px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tag {
+  padding: 4px 9px;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  font: 500 0.7rem / 1 var(--sans);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.tag-soon {
+  border-style: dashed;
+}
+
+/* Facts: a compact two-column list for education and skills. */
+.facts {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  gap: 12px 28px;
+  margin: 0;
+}
+
+.facts dt {
+  grid-column: 1;
+  color: var(--muted);
+}
+
+.facts dd {
+  grid-column: 2;
+  margin: 0;
+}
+
+.facts dd + dd {
+  margin-top: -6px;
+}
+
+/* ---------- Contact ---------- */
+
+.contact .email {
+  display: inline-block;
+  font: 400 clamp(1.5rem, 3.6vw, 2.1rem) / 1.25 var(--serif);
+  letter-spacing: -0.01em;
+  text-decoration-color: color-mix(in srgb, currentColor 25%, transparent);
+  text-underline-offset: 6px;
+  text-decoration-thickness: 1px;
+  margin: 4px 0 8px;
+  word-break: break-all;
+}
+
+.contact .email:hover {
+  text-decoration-color: var(--accent);
+}
+
+.contact .links {
+  margin-top: 22px;
+}
+
+/* ---------- Footer ---------- */
+
+.footer {
+  margin-top: 24px;
+  padding: 28px var(--gutter) 56px;
+  border-top: 1px solid var(--rule);
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+/* ---------- Motion ----------
+   Sections fade up once as they enter. Only when the script runs,
+   so nothing is hidden if it doesn't. */
+
+.js .reveal {
+  opacity: 0;
+  transform: translateY(10px);
+  transition:
+    opacity 450ms ease,
+    transform 450ms ease;
+}
+
+.js .reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .js .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .name .arrow,
+  .thumb img {
+    transition: none;
+  }
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 1039px) {
+  .grid {
+    grid-template-columns: var(--num) minmax(0, 1fr);
+  }
+
+  .grid > .side {
+    grid-column: 2;
+  }
+}
+
+@media (max-width: 639px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .grid > .num,
+  .grid > .body,
+  .grid > .side {
+    grid-column: 1;
+  }
+
+  .nav-links {
+    display: none;
+  }
+
+  .intro {
+    padding: 56px 0 48px;
+  }
+
+  .section {
+    padding: 36px 0 40px;
+  }
+
+  .section .num {
+    padding-top: 0;
+    margin-bottom: 10px;
+  }
+
+  .facts {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+
+  .facts dt,
+  .facts dd {
+    grid-column: 1;
+  }
+
+  .facts dt {
+    margin-top: 12px;
+    font-size: 0.8rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .facts dt:first-child {
+    margin-top: 0;
+  }
+}
+
+/* Below this width a row is narrower than on a wide screen, where every
+   name, role and year is known to fit on one line. So the role goes under
+   the name at full width, and a long one can never wrap into an indent. */
+@media (max-width: 743px) {
+  .row-head {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .row-head h3,
+  .row-head .name {
+    grid-row: 1;
+    grid-column: 1;
+  }
+
+  .row-head .when {
+    grid-row: 1;
+    grid-column: 2;
+  }
+
+  .row-head .role {
+    grid-row: 2;
+    grid-column: 1 / -1;
+  }
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+/* An organisation's name that is also a link: plain until hovered, like a project's. */
+.row-head h3 a {
+  text-decoration: none;
+}
+
+.row-head h3 a:hover {
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+}
+
+/* A small line under a row, for the one thing worth adding. */
+.aside {
+  margin: 12px 0 0;
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+
+/* Project thumbnails: in the margin on wide screens, under the text
+   elsewhere. They repeat the row's link, so they are skipped by
+   keyboards and screen readers. */
+.row {
+  position: relative;
+}
+
+.thumb {
+  display: block;
+  width: min(100%, 360px);
+  margin: 14px 0 0;
+}
+
+.thumb img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  object-position: top;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  filter: saturate(0.85);
+  opacity: 0.92;
+  transition:
+    opacity 150ms ease,
+    filter 150ms ease;
+}
+
+.thumb:hover img {
+  opacity: 1;
+  filter: none;
+}
+
+@media (min-width: 1040px) {
+  .thumb {
+    position: absolute;
+    left: calc(100% + 48px);
+    top: 22px;
+    width: 220px;
+    margin: 0;
+  }
+}
+
+
+
+/* ---------- Project pages ----------
+   One page per project, in the same grid as the home page. It answers
+   three questions in order: what does it look like, what is it, and who
+   did what. */
+
+.project-intro {
+  padding: 56px 0 30px;
+}
+
+.back {
+  font-size: 0.875rem;
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.back:hover {
+  color: var(--ink);
+}
+
+.project-intro h1 {
+  font: 400 clamp(2.4rem, 5.4vw, 3.2rem) / 1.06 var(--serif);
+  letter-spacing: -0.015em;
+  margin: 18px 0 12px;
+}
+
+.project-intro .subline {
+  margin-bottom: 20px;
+}
+
+.project-intro .links {
+  margin-top: 26px;
+}
+
+/* Pictures: a row of slides. It scrolls sideways and snaps, so it works
+   by swipe or trackpad with no script at all. The script adds two
+   chevrons, a counter and one shared caption. The strip runs across the
+   reading column and the margin. */
+.shots {
+  grid-column: 2 / -1;
+  min-width: 0;
+  padding-bottom: 12px;
+}
+
+.shots-track {
+  position: relative;
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  border-radius: 8px;
+}
+
+.shots-track::-webkit-scrollbar {
+  display: none;
+}
+
+.shot {
+  flex: 0 0 100%;
+  margin: 0;
+  scroll-snap-align: start;
+}
+
+.shot a {
+  display: block;
+}
+
+.shot img,
+.shot-empty {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 10;
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+}
+
+.shot img {
+  object-fit: cover;
+  background: var(--hover);
+}
+
+.shot figcaption,
+.shots-caption {
+  margin: 10px 0 0;
+  max-width: 62ch;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.shots-bar {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  margin-top: 12px;
+}
+
+.shots-caption {
+  margin: 0;
+  padding-top: 5px;
+}
+
+/* With the script running, each slide's own caption gives way to the shared one. */
+.js-shots .shot figcaption {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* The stepper: a count between two chevrons. */
+.stepper {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+}
+
+.stepper button {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 32px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: none;
+  color: var(--muted);
+  cursor: pointer;
+  transition: color 150ms ease;
+}
+
+.stepper button:hover {
+  color: var(--ink);
+}
+
+.stepper svg {
+  width: 7px;
+  height: 11px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.stepper-count {
+  min-width: 3.2em;
+  text-align: center;
+  font: 500 0.75rem / 1 var(--sans);
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.stepper-count b {
+  font-weight: 500;
+  color: var(--accent);
+}
+
+/* Steps: what was done, in order. The numeral is drawn by the list itself. */
+.steps {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: step;
+  border-top: 1px solid var(--rule);
+}
+
+.steps li {
+  display: grid;
+  grid-template-columns: 2.4rem minmax(0, 1fr);
+  padding: 14px 0 16px;
+  border-bottom: 1px solid var(--rule);
+  counter-increment: step;
+}
+
+.steps li::before {
+  content: counter(step, decimal-leading-zero);
+  padding-top: 0.42rem;
+  font: 500 0.75rem / 1 var(--sans);
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+
+.steps b {
+  display: block;
+  font-weight: 500;
+}
+
+.steps span {
+  display: block;
+  margin-top: 2px;
+  color: var(--muted);
+  max-width: 58ch;
+  text-wrap: pretty;
+}
+
+/* Who did what: the part on the left, the person and the detail on the right. */
+.roles {
+  display: grid;
+  grid-template-columns: minmax(7.5rem, max-content) minmax(0, 1fr);
+  gap: 14px 28px;
+  margin: 0;
+}
+
+.roles dt {
+  grid-column: 1;
+  color: var(--muted);
+}
+
+.roles dd {
+  grid-column: 2;
+  margin: 0;
+  max-width: 58ch;
+  text-wrap: pretty;
+}
+
+.roles dd b {
+  font-weight: 500;
+}
+
+.project-text p {
+  max-width: 62ch;
+  text-wrap: pretty;
+}
+
+.project-text p + p {
+  margin-top: 12px;
+}
+
+.project-text .pull {
+  font: 400 1.2rem / 1.45 var(--serif);
+  margin: 14px 0;
+  padding-left: 16px;
+  border-left: 2px solid var(--rule);
+}
+
+.plain-list {
+  margin: 12px 0 0;
+  padding-left: 1.1em;
+  max-width: 62ch;
+}
+
+.plain-list li {
+  margin: 5px 0;
+}
+
+.plain-list li::marker {
+  color: var(--faint);
+}
+
+/* The way on from a project: the others, and the way back. */
+.more {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 22px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.95rem;
+}
+
+.more a {
+  text-decoration: none;
+  color: var(--muted);
+}
+
+.more a:hover {
+  color: var(--ink);
+}
+
+/* Placeholders: words still to be supplied. Loud on purpose, so none is published by accident. */
+.tk {
+  padding: 1px 5px;
+  border-radius: 3px;
+  background: color-mix(in srgb, #f2c230 42%, transparent);
+  color: var(--ink);
+}
+
+.draft-note {
+  margin: 0 0 22px;
+  padding: 10px 14px;
+  border: 1px dashed var(--faint);
+  border-radius: 8px;
+  font-size: 0.875rem;
+  color: var(--muted);
+  max-width: 62ch;
+}
+
+.shot-empty {
+  display: grid;
+  place-items: center;
+  border-style: dashed;
+  border-color: var(--faint);
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+/* On the home page a project's name leads to its own page: an arrow that moves along, not out. */
+.name .arrow.in {
+  margin-left: 5px;
+}
+
+.name a:hover .arrow.in {
+  transform: translateX(3px);
+}
+
+@media (max-width: 639px) {
+  .shots {
+    grid-column: 1;
+  }
+
+  .project-intro {
+    padding: 36px 0 24px;
+  }
+
+  .roles {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+
+  .roles dt,
+  .roles dd {
+    grid-column: 1;
+  }
+
+  .roles dt {
+    margin-top: 12px;
+    font-size: 0.8rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .roles dt:first-child {
+    margin-top: 0;
+  }
+
+  .shots-bar {
+    gap: 12px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stepper button {
+    transition: none;
+  }
+}
+
+/* ---------- Portrait ----------
+   A small portrait in the margin beside the name. It is there to say that
+   a person wrote this page, so it stays small. On narrower screens it
+   sits above the name instead. */
+
+.portrait {
+  grid-column: 4;
+  grid-row: 1;
+  align-self: start;
+  justify-self: start;
+  margin: 4px 0 0;
+}
+
+.portrait img {
+  display: block;
+  width: 154px;
+  height: 154px;
+  border-radius: 50%;
+  object-fit: cover;
+  /* Lifted off the page a little. The padding is an invisible ring
+     until the pointer is over it, when it fills with colour and turns. */
+  padding: 3px;
+  box-shadow: 0 2px 14px rgb(0 0 0 / 0.14);
+}
+
+@property --ring-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.portrait img:hover {
+  background: conic-gradient(from var(--ring-angle), var(--accent), #f2b33d, #9fd3b5, var(--accent));
+  animation: ring-spin 3s linear infinite;
+}
+
+@keyframes ring-spin {
+  to {
+    --ring-angle: 360deg;
+  }
+}
+
+@media (max-width: 1039px) {
+  .portrait {
+    grid-column: 2;
+    grid-row: auto;
+    order: -1;
+    margin: 0 0 22px;
+  }
+
+  .portrait img {
+    width: 82px;
+    height: 82px;
+  }
+}
+
+@media (max-width: 639px) {
+  .portrait {
+    grid-column: 1;
+  }
+}
+
+.project-intro .aside {
+  margin-top: 16px;
+}
+
+/* ---------- Borrowed from jomeiroot.com ----------
+   Two small things that make a page feel answered: the ring on the
+   portrait (above), and rows that open wherever they are pressed. */
+
+/* A row that leads somewhere answers the pointer along its whole width,
+   and the name's link is stretched over it. Links inside the row stay
+   their own. */
+.row.linked {
+  isolation: isolate;
+}
+
+.row.linked::before {
+  content: "";
+  position: absolute;
+  inset: 1px -14px;
+  z-index: -1;
+  border-radius: 8px;
+  background: var(--hover);
+  opacity: 0;
+  transition: opacity 150ms ease;
+}
+
+.row.linked:hover::before,
+.row.linked:focus-within::before {
+  opacity: 1;
+}
+
+.row.linked .name a::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.row.linked:hover .name .arrow.in {
+  color: var(--ink);
+  transform: translateX(3px);
+}
+
+.row.linked .summary a,
+.row.linked .when a,
+.row.linked .row-links a {
+  position: relative;
+  z-index: 1;
+}
+
+/* Under each project: the thing itself, and its code. */
+.row-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 20px;
+  margin: 12px 0 0;
+  font-size: 0.875rem;
+}
+
+.row-links a {
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 150ms ease;
+}
+
+.row-links a:hover {
+  color: var(--ink);
+}
+
+.row-links span {
+  margin-left: 4px;
+  color: var(--faint);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .portrait img:hover {
+    animation: none;
+  }
+
+  .row.linked::before {
+    transition: none;
+  }
+}
+
+/* ---------- Resume ----------
+   The resume's one page, laid on the site like a sheet of paper, with the
+   file one press away. It is a picture of the PDF. An embedded PDF looks
+   different in every browser and does not show at all on many phones; a
+   picture looks the same everywhere, and the PDF is still the thing that
+   is downloaded. */
+
+.resume.grid > .body {
+  grid-column: 2 / -1;
+}
+
+.resume-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px 20px;
+  max-width: 860px;
+  margin-bottom: 24px;
+}
+
+.resume-head h2 {
+  margin: 0;
+}
+
+.resume-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.sheet {
+  display: block;
+  max-width: 860px;
+  overflow: hidden;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  background: #fff;
+  box-shadow:
+    0 1px 2px rgb(0 0 0 / 0.05),
+    0 18px 50px -18px rgb(0 0 0 / 0.28);
+  transition:
+    transform 250ms ease,
+    box-shadow 250ms ease;
+}
+
+.sheet:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    0 2px 4px rgb(0 0 0 / 0.06),
+    0 28px 64px -18px rgb(0 0 0 / 0.36);
+}
+
+.sheet img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* On the dark page the sheet stays paper, a shade quieter. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .sheet img {
+    filter: brightness(0.92);
+  }
+}
+
+:root[data-theme="dark"] .sheet img {
+  filter: brightness(0.92);
+}
+
+@media (max-width: 639px) {
+  .resume.grid > .body {
+    grid-column: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sheet {
+    transition: none;
+  }
+}
+
+/* ---------- Daylight ----------
+   A faint wash of colour at the top of every page that follows the
+   reader's own time of day: cool before dawn, warm at sunrise, clear at
+   noon, amber at dusk. It drifts a little, too slowly to watch.
+
+   It stays at the top of the window and stays pale. The clocks on this
+   site are about the minute you are in, and so is this.
+
+   The two colours come from the script. Without it, it is midday. */
+
+:root {
+  --glow-a: 160 215 180;
+  --glow-b: 150 195 240;
+  --glow-alpha: 0.38;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --glow-alpha: 0.17;
+  }
+}
+
+:root[data-theme="dark"] {
+  --glow-alpha: 0.17;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: -12% -8% auto;
+  height: 80vh;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(52% 62% at 82% 16%, rgb(var(--glow-a) / var(--glow-alpha)), transparent 72%),
+    radial-gradient(46% 56% at 10% 10%, rgb(var(--glow-b) / var(--glow-alpha)), transparent 72%);
+  animation: daylight 46s ease-in-out infinite alternate;
+}
+
+@keyframes daylight {
+  from {
+    transform: translate3d(-1.5%, 0, 0) scale(1);
+  }
+
+  to {
+    transform: translate3d(2%, 2.5%, 0) scale(1.08);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body::before {
+    animation: none;
+  }
+}
+
+@media print {
+  body::before {
+    display: none;
+  }
+}
