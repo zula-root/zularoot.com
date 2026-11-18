@@ -49,6 +49,23 @@
   toggle?.addEventListener("click", refreshLives);
   dark.addEventListener("change", refreshLives);
 
+  /* Browser windows: on a wide screen, draw the page inside at laptop width
+     and scale it to fit, so it looks as it does on a laptop. On a phone,
+     show the page's own phone layout. */
+  for (const view of doc.querySelectorAll(".browser-view[data-design-width]")) {
+    const frame = view.querySelector("iframe");
+    const W = +view.dataset.designWidth;
+    const fit = () => {
+      const w = view.clientWidth, wide = w >= 560, k = w / W;
+      view.classList.toggle("scaled", wide);
+      frame.style.width = wide ? `${W}px` : "";
+      frame.style.height = wide ? `${view.clientHeight / k}px` : "";
+      frame.style.transform = wide ? `scale(${k})` : "";
+    };
+    new ResizeObserver(fit).observe(view);
+    fit();
+  }
+
   /* Nav: a hairline appears once the page has scrolled under it,
      and the link for the section in view is darkened. */
   const nav = doc.querySelector(".nav");
