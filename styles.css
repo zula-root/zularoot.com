@@ -1384,34 +1384,57 @@ body::before {
 }
 
 /* ---------- Live clocks ----------
-   The clocks themselves, embedded with their stand face (the sentence only),
-   so a visitor sees one working without a click. The frame sits above the
-   row's stretched link, so pressing it reaches the clock. */
+   The clocks themselves, embedded without a frame: each clock draws on this
+   page's own background, and tells the page how tall it is. The frame sits
+   above the row's stretched link, so pressing it reaches the clock. */
 .live {
   position: relative;
   z-index: 1;
-  margin: 16px 0 0;
+  margin: 18px 0 4px;
 }
 
 .live-frame {
   display: block;
   width: 100%;
-  aspect-ratio: 16 / 9;
-  min-height: 220px;
-  border: 1px solid var(--rule);
-  border-radius: 8px;
-  background: var(--hover);
+  height: 420px;
+  border: 0;
+  background: transparent;
+  color-scheme: normal;
 }
 
-.live-small .live-frame {
-  aspect-ratio: 16 / 7;
-  min-height: 180px;
+.live-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 16px;
+}
+
+.live-dot {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font: 500 0.75rem / 1 var(--sans);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.live-dot::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #d9534f;
+  animation: live-pulse 2s ease-in-out infinite;
+}
+
+@keyframes live-pulse {
+  50% { opacity: 0.35; }
 }
 
 .live-tabs {
   display: inline-flex;
-  gap: 4px;
-  margin: 0 0 10px;
+  gap: 2px;
   padding: 3px;
   border: 1px solid var(--rule);
   border-radius: 999px;
@@ -1432,6 +1455,6 @@ body::before {
   color: var(--paper);
 }
 
-.now .row-links {
-  margin-top: 14px;
+@media (prefers-reduced-motion: reduce) {
+  .live-dot::before { animation: none; }
 }

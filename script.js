@@ -20,10 +20,13 @@
     } catch {}
   });
 
-  /* Live clocks: each frame shows a clock's stand face in the page's own
-     light or dark, and the Transit and Docket buttons swap which clock. */
+  /* Live clocks: each frame shows a clock on this page's own background, in
+     its light or dark, and the buttons swap which clock. The clock reports
+     its height, and the frame takes it. */
   const lives = [...doc.querySelectorAll(".live")];
-  const liveSrc = (clock) => `https://zula-root.github.io/${clock}/?face=stand&theme=${current()}`;
+  const clockBase = location.hostname === "localhost" ? "http://localhost:4325/" : "https://zula-root.github.io/";
+  const paper = () => (current() === "dark" ? "151614" : "f7f5f0");
+  const liveSrc = (clock) => `${clockBase}${clock}/?embed=1&face=full&theme=${current()}&bg=${paper()}`;
   const setLive = (live, clock) => {
     live.dataset.clock = clock;
     const frame = live.querySelector(".live-frame");
@@ -36,6 +39,12 @@
   for (const live of lives) {
     for (const b of live.querySelectorAll(".live-tabs button")) b.addEventListener("click", () => setLive(live, b.dataset.clock));
   }
+  addEventListener("message", (e) => {
+    if (!e.data || typeof e.data.height !== "number" || !e.data.sentenceClock) return;
+    for (const frame of doc.querySelectorAll(".live-frame")) {
+      if (frame.contentWindow === e.source) frame.style.height = `${e.data.height}px`;
+    }
+  });
   refreshLives();
   toggle?.addEventListener("click", refreshLives);
   dark.addEventListener("change", refreshLives);

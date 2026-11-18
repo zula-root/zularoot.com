@@ -148,18 +148,22 @@
         <ul class="rows">
           <li class="row linked">
             <div class="row-head">
-              <h3 class="name"><a href="https://zula-root.github.io/Transit-Clock/" target="_blank" rel="noreferrer">Sentence Clocks<span class="arrow in" aria-hidden="true">↗</span></a></h3>
+              <h3 class="name"><a href="https://zula-root.github.io/Docket-Clock/" target="_blank" rel="noreferrer">Sentence Clocks<span class="arrow in" aria-hidden="true">↗</span></a></h3>
             </div>
             <p class="summary">I made two interactive clocks. One shows a train departing somewhere in the world, and the other shows a line from a court case that mentions the time.</p>
-            <!-- The clocks themselves, live. The buttons swap which one is shown. -->
-            <div class="live" data-clock="Transit-Clock">
-              <div class="live-tabs" role="group" aria-label="Which clock">
-                <button type="button" data-clock="Transit-Clock" aria-pressed="true">Transit</button>
-                <button type="button" data-clock="Docket-Clock" aria-pressed="false">Docket</button>
+            <!-- The clocks themselves, live, drawn on this page's own background.
+                 The buttons swap which one is shown. -->
+            <div class="live" data-clock="Docket-Clock">
+              <div class="live-bar">
+                <span class="live-dot">Live</span>
+                <div class="live-tabs" role="group" aria-label="Which clock">
+                  <button type="button" data-clock="Docket-Clock" aria-pressed="true">Docket</button>
+                  <button type="button" data-clock="Transit-Clock" aria-pressed="false">Transit</button>
+                </div>
               </div>
-              <iframe class="live-frame" src="https://zula-root.github.io/Transit-Clock/?face=stand" title="The Transit Clock, live" loading="lazy"></iframe>
+              <iframe class="live-frame" title="The Docket Clock, live" scrolling="no"></iframe>
             </div>
-            <p class="row-links"><a href="https://zula-root.github.io/Transit-Clock/" target="_blank" rel="noreferrer">Open the clocks<span aria-hidden="true">↗</span></a><a href="projects/clocks.html">How I made it<span aria-hidden="true">→</span></a><a href="https://github.com/zula-root/Transit-Clock" target="_blank" rel="noreferrer">View on GitHub<span aria-hidden="true">↗</span></a></p>
+            <p class="row-links"><a href="https://zula-root.github.io/Docket-Clock/" target="_blank" rel="noreferrer">Open the clocks<span aria-hidden="true">↗</span></a><a href="projects/clocks.html">How I made it<span aria-hidden="true">→</span></a><a href="https://github.com/zula-root/Transit-Clock" target="_blank" rel="noreferrer">View on GitHub<span aria-hidden="true">↗</span></a></p>
           </li>
           <li class="row linked">
             <div class="row-head">
@@ -218,20 +222,8 @@
       </div>
     </section>
 
-    <section class="section grid reveal now" id="now" aria-labelledby="h-now">
-      <span class="num" aria-hidden="true">06</span>
-      <div class="body">
-        <h2 id="h-now">Right now</h2>
-        <p class="intro-line">One of my clocks, live. It shows a line from a court case that mentions this minute.</p>
-        <div class="live live-small" data-clock="Docket-Clock">
-          <iframe class="live-frame" src="https://zula-root.github.io/Docket-Clock/?face=stand" title="The Docket Clock, live" loading="lazy"></iframe>
-        </div>
-        <p class="row-links"><a href="#projects">See all my projects<span aria-hidden="true">↑</span></a></p>
-      </div>
-    </section>
-
     <section class="section grid reveal contact" id="contact" aria-labelledby="h-contact">
-      <span class="num" aria-hidden="true">07</span>
+      <span class="num" aria-hidden="true">06</span>
       <div class="body">
         <h2 id="h-contact">Contact</h2>
         <a class="email" href="mailto:zula@sas.upenn.edu">zula@sas.upenn.edu</a>
