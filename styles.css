@@ -1541,3 +1541,12 @@ body::before {
   top: 0;
   left: 0;
 }
+
+.browser-view.tall {
+  height: min(70vh, 620px);
+}
+
+/* On a project page the window may run wider than the text. */
+.browser.wide {
+  width: min(960px, calc(100vw - 2 * var(--gutter)));
+}
