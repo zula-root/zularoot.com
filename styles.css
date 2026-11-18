@@ -1382,3 +1382,56 @@ body::before {
     display: none;
   }
 }
+
+/* ---------- Live clocks ----------
+   The clocks themselves, embedded with their stand face (the sentence only),
+   so a visitor sees one working without a click. The frame sits above the
+   row's stretched link, so pressing it reaches the clock. */
+.live {
+  position: relative;
+  z-index: 1;
+  margin: 16px 0 0;
+}
+
+.live-frame {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  min-height: 220px;
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  background: var(--hover);
+}
+
+.live-small .live-frame {
+  aspect-ratio: 16 / 7;
+  min-height: 180px;
+}
+
+.live-tabs {
+  display: inline-flex;
+  gap: 4px;
+  margin: 0 0 10px;
+  padding: 3px;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+}
+
+.live-tabs button {
+  font: 500 0.8rem / 1 var(--sans);
+  padding: 7px 14px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+}
+
+.live-tabs button[aria-pressed="true"] {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.now .row-links {
+  margin-top: 14px;
+}

@@ -20,6 +20,26 @@
     } catch {}
   });
 
+  /* Live clocks: each frame shows a clock's stand face in the page's own
+     light or dark, and the Transit and Docket buttons swap which clock. */
+  const lives = [...doc.querySelectorAll(".live")];
+  const liveSrc = (clock) => `https://zula-root.github.io/${clock}/?face=stand&theme=${current()}`;
+  const setLive = (live, clock) => {
+    live.dataset.clock = clock;
+    const frame = live.querySelector(".live-frame");
+    const src = liveSrc(clock);
+    if (frame.src !== src) frame.src = src;
+    frame.title = `The ${clock.replace("-", " ")}, live`;
+    for (const b of live.querySelectorAll(".live-tabs button")) b.setAttribute("aria-pressed", String(b.dataset.clock === clock));
+  };
+  const refreshLives = () => lives.forEach((live) => setLive(live, live.dataset.clock));
+  for (const live of lives) {
+    for (const b of live.querySelectorAll(".live-tabs button")) b.addEventListener("click", () => setLive(live, b.dataset.clock));
+  }
+  refreshLives();
+  toggle?.addEventListener("click", refreshLives);
+  dark.addEventListener("change", refreshLives);
+
   /* Nav: a hairline appears once the page has scrolled under it,
      and the link for the section in view is darkened. */
   const nav = doc.querySelector(".nav");
